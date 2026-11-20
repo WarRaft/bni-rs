@@ -1,0 +1,25 @@
+// TriggerData-style sample: sections of key=value items
+//***************************************************************************
+[TriggerCategories]
+TC_AI=WESTRING_TRIGCAT_AI,ReplaceableTextures\WorldEditUI\Actions-AI,1
+TC_NOTHING=WESTRING_TRIGCAT_NOTHING,ReplaceableTextures\WorldEditUI\Actions-Nothing
+
+[TriggerTypes]
+abilcode=0,1,1,WESTRING_TRIGTYPE_abilcode,integer
+real=1,1,1,WESTRING_TRIGTYPE_real
+Empty=
+
+[Misc]
+GoldTextColor=255,255,220,0
+GoldTextVelocity=0,0.03,100
+PuffDuration=3000 // Duration of a puff, in milliseconds
+QuickSave='S'           // Alt-S
+Name="City Building (Diagonal 1, Red)"
+WESTRING_HOTKEY_BACKSLASH="\"
+SoundName=Kel'Thuzad (Necromancer)
+Chance=-0.5
+
+[TriggerActionStrings]
+FuncKey=~Player," ",~Presses/Releases," the ",~Key," key"
+FuncKey="Player key event"
+=~Script Code

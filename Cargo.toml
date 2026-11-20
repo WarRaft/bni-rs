@@ -1,0 +1,17 @@
+[package]
+name = "bni-rs"
+version = "0.1.0"
+edition = "2024"
+description = "A parser, linter and semantic highlighter for BNI (Blizzard INI), the Warcraft III data-file format"
+license = "CC0-1.0"
+
+[[bin]]
+name = "bni-rs"
+path = "src/main.rs"
+
+[lib]
+name = "bni_rs"
+path = "src/lib.rs"
+
+[dependencies]
+parser-rs = { path = "../parser-rs" }
