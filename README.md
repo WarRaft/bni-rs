@@ -275,3 +275,9 @@ if let Some(types) = doc.section("TriggerTypes") {
     }
 }
 ```
+
+Text forms of binary files (object data, map info) need strings BNI
+can't hold: line breaks, `"`. `bni_rs::string::quote` writes any string
+as quoted parts with escapes between them, `"Line one"\n"Line two"`
+(`\n`, `\r`, `\t`, `\u{...}`), and `bni_rs::string::unquote` reads a
+field back.

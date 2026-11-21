@@ -12,6 +12,7 @@ pub mod parser;
 pub mod printer;
 pub mod query;
 pub mod semantic;
+pub mod string;
 pub mod token;
 
 pub use ast::{ColumnEncoding, Document, Span};
