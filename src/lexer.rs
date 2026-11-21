@@ -166,7 +166,7 @@ fn classify(part: &str) -> Tok {
     let all_digits = |s: &str| s.bytes().all(|b| b.is_ascii_digit());
     match digits.split_once('.') {
         None if !digits.is_empty() && all_digits(digits) => match part.parse() {
-            Ok(n) => Tok::Int(n),
+            Ok(n) => Tok::Int(n, part.to_string()),
             Err(_) => Tok::Text(part.to_string()),
         },
         Some((int, frac))

@@ -24,7 +24,7 @@ pub fn semantic_tokens(src: &str) -> Vec<SemanticToken> {
                 Tok::SectionName(_) => (T::Namespace, decl),
                 Tok::Key(_) => (T::Property, decl),
                 Tok::Eq => (T::Operator, Modifiers::NONE),
-                Tok::Int(_) | Tok::Real(_) => (T::Number, Modifiers::NONE),
+                Tok::Int(..) | Tok::Real(_) => (T::Number, Modifiers::NONE),
                 Tok::Quoted { .. } => (T::String, Modifiers::NONE),
                 Tok::Text(s) => text_type(s),
                 Tok::Comment => (T::Comment, Modifiers::NONE),

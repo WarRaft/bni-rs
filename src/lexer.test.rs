@@ -40,7 +40,7 @@ fn scans_keys_and_values() {
         [
             (Tok::Key("Color ".into()), 1, 7),
             (Tok::Eq, 7, 8),
-            (Tok::Int(255), 9, 12),
+            (Tok::Int(255, "255".into()), 9, 12),
             (Tok::Comma, 12, 13),
             (Tok::Real("0.5".into()), 14, 17),
             (Tok::Comma, 18, 19),
@@ -69,8 +69,11 @@ fn quoted_strings_have_no_escapes() {
 
 #[test]
 fn classifies_numbers_by_the_whole_part() {
-    assert_eq!(classify("42"), Tok::Int(42));
-    assert_eq!(classify("-1"), Tok::Int(-1));
+    assert_eq!(classify("42"), Tok::Int(42, "42".into()));
+    assert_eq!(classify("-1"), Tok::Int(-1, "-1".into()));
+    // The raw text is kept: `-0` stays negative, `007` keeps its zeros.
+    assert_eq!(classify("-0"), Tok::Int(0, "-0".into()));
+    assert_eq!(classify("007"), Tok::Int(7, "007".into()));
     assert_eq!(classify("0.00"), Tok::Real("0.00".into()));
     assert_eq!(classify("-.5"), Tok::Real("-.5".into()));
     assert_eq!(classify("3."), Tok::Real("3.".into()));
@@ -92,7 +95,7 @@ fn handles_line_endings_bom_and_junk() {
             &Tok::Newline,
             &Tok::Key("k".into()),
             &Tok::Eq,
-            &Tok::Int(1),
+            &Tok::Int(1, "1".into()),
             &Tok::Newline,
             &Tok::Junk("broken line".into()),
             &Tok::Eof,

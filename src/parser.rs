@@ -104,7 +104,7 @@ impl Parser {
         loop {
             let t = self.tokens.peek().clone();
             let kind = match &t.kind {
-                Tok::Int(n) => ValueKind::Int(*n),
+                Tok::Int(n, _) => ValueKind::Int(*n),
                 Tok::Real(r) => ValueKind::Real(r.parse().unwrap_or(0.0)),
                 Tok::Text(_) => ValueKind::Text,
                 Tok::Quoted { closed, .. } => ValueKind::Quoted { closed: *closed },
@@ -116,7 +116,7 @@ impl Parser {
                     current = None;
                     if !matches!(
                         self.tokens.peek_kind(),
-                        Tok::Int(_) | Tok::Real(_) | Tok::Text(_) | Tok::Quoted { .. } | Tok::Comma
+                        Tok::Int(..) | Tok::Real(_) | Tok::Text(_) | Tok::Quoted { .. } | Tok::Comma
                     ) {
                         let after = self.tokens.prev().clone();
                         fields.push(empty_field_after(&after));
@@ -156,8 +156,7 @@ impl Parser {
 
 fn part_text(kind: &Tok) -> String {
     match kind {
-        Tok::Int(n) => n.to_string(),
-        Tok::Real(s) | Tok::Text(s) | Tok::Quoted { value: s, .. } => s.clone(),
+        Tok::Int(_, s) | Tok::Real(s) | Tok::Text(s) | Tok::Quoted { value: s, .. } => s.clone(),
         _ => String::new(),
     }
 }

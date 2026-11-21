@@ -19,8 +19,9 @@ pub enum Tok {
     Key(String),
     /// The `=` of an item.
     Eq,
-    /// A value part that is a whole integer, such as `42` or `-1`.
-    Int(i64),
+    /// A value part that is a whole integer, such as `42` or `-1`, and its
+    /// raw text, so `-0` and `007` print as written.
+    Int(i64, String),
     /// A value part that is a whole decimal, such as `0.5` or `-3.14`.
     /// The raw text is kept, so `0.00` prints as written.
     Real(String),
@@ -54,7 +55,7 @@ impl fmt::Display for Tok {
             Tok::RBracket => write!(f, "']'"),
             Tok::Key(key) => write!(f, "key '{key}'"),
             Tok::Eq => write!(f, "'='"),
-            Tok::Int(n) => write!(f, "integer {n}"),
+            Tok::Int(n, _) => write!(f, "integer {n}"),
             Tok::Real(r) => write!(f, "number {r}"),
             Tok::Text(t) => write!(f, "'{t}'"),
             Tok::Quoted { value, .. } => write!(f, "\"{value}\""),
